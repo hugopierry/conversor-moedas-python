@@ -3,17 +3,17 @@ from real_dolar import real_dolar
 from buscar_cotacao import buscar_cotacao
 
 
-
-
 def menu():
+    compra, venda = buscar_cotacao()
+
     while True:
         print("=" * 60)
         print("💱 CONVERSOR DE MOEDAS".center(60))
-        compra, venda = buscar_cotacao()
+        
         if compra is None:
             print("Cotação indisponível".center(60))
         else: 
-            print(f"Compra: R$ {compra:.4f} | Venda: R$ {venda:.4f}".center(60))
+            print(f"\nCompra: R$ {compra:.4f} | Venda: R$ {venda:.4f}".center(60))
         
        
         
@@ -27,12 +27,18 @@ def menu():
         print("=" * 60)
 
         if opcao == "1":
-            dolar_real()
+            if venda is not None:
+                dolar_real(venda)
+            else:
+                print("Conversão indisponível: cotação não encontrada.")
         elif opcao == "2":
-            real_dolar()
+            if venda is not None:
+                real_dolar(venda)
+            else:
+                print("Conversão indisponível: cotação não encontrada.")
         elif opcao == "0":
             print("\nSaindo do sistema...")
-            print("Até logo!")
+            print("\nAté logo!")
             break
         else:
             print(f"\nOpção '{opcao}' inválida!")
